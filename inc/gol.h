@@ -55,7 +55,6 @@ typedef struct GoL
     size_t seed;
     enum Mode mode;
 
-    int  (*get_col_count)(struct GoL*, int, int, int);
     void (*cell_state_change)(struct GoL*, int, int);
     void (*rand_init)(struct GoL*);
     void (*blinker_init)(struct GoL*);
@@ -67,7 +66,6 @@ typedef struct GoL
 } GoL;
 
 // Function prototypes
-int get_col_count(struct GoL* gol, int row, int col, int live_n_old);
 int cell_state_change(struct GoL* gol, int row, int col);
 void rand_init(struct GoL* gol);
 void blinker_init(struct GoL* gol);

@@ -50,23 +50,6 @@ void cleanup()
 #endif
 }
 
-/* Count neighbors on either side */
-int get_col_count(struct GoL* gol, int row, int col, int live_n_old)
-{
-    int live_n_new = live_n_old;
-    if (0 <= (col - 1))
-    {
-        live_n_new += gol->grid[row][col - 1];
-    }
-
-    if ((col + 1) < GRID_SIZE)
-    {
-        live_n_new += gol->grid[row][col + 1];
-    }
-
-    return live_n_new;
-}
-
 /*
 * Decide whether to toggle the cell state (alive/dead)
 *
@@ -83,19 +66,32 @@ int get_col_count(struct GoL* gol, int row, int col, int live_n_old)
 int cell_state_change(struct GoL* gol, int row, int col)
 {
     int live_n = 0;
-    if (0 <= (row - 1))
-    {
-        live_n = get_col_count(gol, row - 1, col, live_n);
-        live_n += gol->grid[row - 1][col];
-    }
 
-    if ((row + 1) < GRID_SIZE)
+    // Iterate over the neighboring cells
+    for (int offset_i = -1; offset_i <= 1; ++offset_i)
     {
-        live_n = get_col_count(gol, row + 1, col, live_n);
-        live_n += gol->grid[row + 1][col];
-    }
+        for (int offset_j = -1; offset_j <= 1; ++offset_j)
+        {
+            if (!(offset_i == 0 && offset_j == 0))
+            {
+                int neighbor_row = (row + offset_i) % GRID_SIZE;
+                int neighbor_col = (col + offset_j) % GRID_SIZE;
 
-    live_n = get_col_count(gol, row, col, live_n);
+                // Handle negative indices by adding GRID_SIZE if necessary
+                if (neighbor_row < 0)
+                {
+                    neighbor_row += GRID_SIZE;
+                }
+
+                if (neighbor_col < 0)
+                {
+                    neighbor_col += GRID_SIZE;
+                }
+
+                live_n += gol->grid[neighbor_row][neighbor_col];
+            }
+        }
+    }
 
     if (gol->grid[row][col] == 1 && (3 < live_n || live_n < 2))
     {
