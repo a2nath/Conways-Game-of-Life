@@ -1,0 +1,148 @@
+# Congway's Game of Life #
+
+## Table of Contents
+-   [Modes of Operation](#Modes_of_Operation)
+-   [Usage](#Usage)
+-   [Invoke Usage](#Invoke_Usage)
+-   [Demo](#Demo)
+
+
+## Modes of Operation
+
+### Console scroll output
+This mode simply scrolls the console with print out of each generation in the grid. Bigger the grid, more scroll. Compile as follows:
+```python
+# bare minimum parameters to compile in POSIX
+gcc src/interview.c src/gol.c -Iinc -o gol
+
+# bare minimum parameters to compile in WINDOWS
+cl src\interview.c src\gol.c /Iinc /Fe:gol.exe
+```
+
+### Console constant refresh
+This mode refreshes the console so that the output of each generation within its grid stays in the same place. Compile as follows:
+```python
+# render the output inplace in POSIX
+gcc src/interview.c src/gol.c -Iinc -o gol -DREFRESH_RATE=5 -DSTEPS=1000 -DRENDER_INPLACE
+
+# render the output inplace in WINDOWS
+cl src\interview.c src\gol.c /Iinc /Fe:gol.exe /DREFRESH_RATE=5 /DSTEPS=1000 /DRENDER_INPLACE
+```
+
+## Usage
+Supports 4 modes of output, 3 of which are stable outputs for testing purpose. And seed value for random number generator `12345` only affects the `RANDOM` mode. 
+```python
+# various options to start the game in POSIX
+./gol        # default is RANDOM, default seed is time(NULL)
+./gol RANDOM #./gol RANDOM 12345
+./gol bLiNkEr
+./gol toad
+./gol BEACON
+
+```
+You can also use the `-DSIMULATION_S` or SIMULATION_S paramater when compiling to set the amount of time to simulate the game. It overrides `-DSTEPS` or STEPS preprocessor switch (macro). This was supposed to be a simple project so I kept the macro switches as so, rather then making them part of the command-line arguments. 
+
+## Invoke Usage
+```python
+./gol -h #./gol --help
+Usage:
+        ./gol <optional pattern : [RANDOM, bLiNkEr, toad, BEACON] > <optional seed : num>
+        Seed always comes after pattern. Need to provide pattern if providing seed. RANDOM is default
+```
+
+## Demo
+
+```python
+# This is also the contents of the run_random_stable.sh script
+./gol RANDOM 1713646168
+```
+  
+Check the output for a toriodal grid behavriour:
+<details>
+<summary>Output</summary>
+
+```
+RANDOM
+seed 1713646168
+. . X . X . . X
+X . X . X X X .
+. . . X X . . .
+X X X . X X X X
+X . X . . X . X
+X X X . X . X X
+. X . . . X . X
+. X X X . . X .
+
+X . . . X . . X
+. X X . . . X X
+. . . . . . . .
+. . X . . . . .
+. . . . . . . .
+. . X X X . . .
+. . . . X X . .
+. X . X X X X X
+
+. . . . X . . .
+. X . . . . X X
+. X X . . . . .
+. . . . . . . .
+. . X . . . . .
+. . . X X X . .
+. . . . . . . .
+. . . X . . . X
+
+X . . . . . X X
+X X X . . . . .
+X X X . . . . .
+. X X . . . . .
+. . . X X . . .
+. . . X X . . .
+. . . X . . . .
+. . . . . . . .
+
+X . . . . . . X
+. . X . . . . .
+. . . X . . . .
+X . . . . . . .
+. . . . X . . .
+. . X . . . . .
+. . . X X . . .
+. . . . . . . X
+
+X . . . . . . X
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . X . . .
+. . . X . . . .
+X . . . . . . X
+
+X . . . . . . X
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+X . . . . . . X
+
+X . . . . . . X
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+X . . . . . . X
+
+X . . . . . . X
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+X . . . . . . X
+```
+</details>
