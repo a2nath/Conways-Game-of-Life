@@ -1,10 +1,10 @@
 # Congway's Game of Life #
 
 ## Table of Contents
--   [Modes of Operation](#Modes_of_Operation)
--   [Usage](#Usage)
--   [Invoke Usage](#Invoke_Usage)
--   [Demo](#Demo)
+-   [Modes of Operation](#modes-of-operation)
+-   [Usage](#usage)
+-   [Invoke Usage](#invoke-usage)
+-   [Demo](#demo)
 
 
 ## Modes of Operation
