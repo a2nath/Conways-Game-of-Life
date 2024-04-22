@@ -150,3 +150,13 @@ X . . . . . . X
 X . . . . . . X
 ```
 </details>
+
+## C++ Implementation
+If you want a C++17 implementation, switch to the `cpp` branch and launch with the cmake system 
+
+```python
+mkdir build && cd build
+cmake ..
+make
+./gol
+```
