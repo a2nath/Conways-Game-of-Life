@@ -1,6 +1,5 @@
 #include "argparse.hpp"
 #include "gol.hpp"
-#include "common.h"
 
 using namespace std;
 

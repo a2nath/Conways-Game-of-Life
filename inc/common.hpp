@@ -17,7 +17,7 @@ inline std::string getcwd()
 }
 
 template<class T>
-T to_num(const std::string& s)
+inline T to_num(const std::string& s)
 {
 	T answer;
 	std::istringstream ss(s);
@@ -32,7 +32,7 @@ inline void usleep(const size_t& milliseconds)
 }
 
 /* Clear console screen */
-void cls()
+inline void cls()
 {
 #ifdef _WIN32
 	system("cls");
@@ -42,7 +42,7 @@ void cls()
 }
 
 /* Either update the graphics in-place, or print in the next line (next generations) */
-void cleanup(bool scroll)
+inline void cleanup(bool scroll)
 {
 	if (scroll)
 	{
