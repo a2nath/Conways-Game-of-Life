@@ -78,7 +78,7 @@ int main(int argc, char** argv, char** envp)
 
     if (args.dims.size() > 2 || args.dims[0] < 3 || args.dims[1] < 3)
     {
-        fprintf(stderr, "Grid size parameter is correct. One or 2 parameters, non-zero {rows, cols}");
+        fprintf(stderr, "Grid size parameter is incorrect. One or 2 parameters, non-zero {rows, cols}");
         exit(EXIT_FAILURE);
     }
     else if (args.dims.size() == 1)
