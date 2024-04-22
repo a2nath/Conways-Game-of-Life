@@ -1,4 +1,4 @@
-# Congway's Game of Life #
+# Conway's Game of Life #
 
 ## Table of Contents
 -   [Tested On](#tested-on)
@@ -44,7 +44,7 @@ Supports 4 modes of output, 3 of which are stable outputs for testing purpose. A
 ./gol BEACON
 
 ```
-You can also use the `-DSIMULATION_S` or SIMULATION_S paramater when compiling to set the amount of time to simulate the game. It overrides `-DSTEPS` or STEPS preprocessor switch (macro). This was supposed to be a simple project so I kept the macro switches as so, rather then making them part of the command-line arguments. 
+You can also use the `-DSIMULATION_S` or SIMULATION_S parameter when compiling to set the amount of time to simulate the game. It overrides `-DSTEPS` or STEPS preprocessor switch (macro). This was supposed to be a simple project so I kept the macro switches as such, rather than making them part of the command-line arguments.
 
 ## Invoke Usage
 ```python
@@ -61,7 +61,7 @@ Usage:
 ./gol RANDOM 1713646168
 ```
   
-Check the output for a toriodal grid behavriour:
+Check the output for a toroidal grid behaviour:
 <details>
 <summary>Output</summary>
 
