@@ -34,7 +34,7 @@ Options:
 
 ### FPS counter
 ```python
-./gol -d 20 20 -r 11 -i -t 70 --stats
+./gol -d 20 20 -r 25 -i -t 70 --stats
 ```
 Output
 
