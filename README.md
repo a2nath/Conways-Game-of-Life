@@ -1,152 +1,110 @@
-# Congway's Game of Life #
-
-## Table of Contents
--   [Tested On](#tested-on)
--   [Modes of Operation](#modes-of-operation)
--   [Usage](#usage)
--   [Invoke Usage](#invoke-usage)
--   [Demo](#demo)
+# Conway's Game of Life #
 
 ## Tested on 
-- Visual Studio 2019 developer console, v16.11.34
-- WSL Ubuntu 22.04.2 LTS, gcc 11.4.0
-
-## Modes of Operation
-
-### Console scroll output
-This mode simply scrolls the console with print out of each generation in the grid. Bigger the grid, more scroll. Compile as follows:
-```python
-# bare minimum parameters to compile in POSIX
-gcc src/interview.c src/gol.c -Iinc -o gol
-
-# bare minimum parameters to compile in WINDOWS
-cl src\interview.c src\gol.c /Iinc /Fe:gol.exe
-```
-
-### Console constant refresh
-This mode refreshes the console so that the output of each generation within its grid stays in the same place. Compile as follows:
-```python
-# render the output inplace in POSIX
-gcc src/interview.c src/gol.c -Iinc -o gol -DREFRESH_RATE=5 -DSTEPS=1000 -DRENDER_INPLACE
-
-# render the output inplace in WINDOWS
-cl src\interview.c src\gol.c /Iinc /Fe:gol.exe /DREFRESH_RATE=5 /DSTEPS=1000 /DRENDER_INPLACE
-```
-
-## Usage
-Supports 4 modes of output, 3 of which are stable outputs for testing purpose. And seed value for random number generator `12345` only affects the `RANDOM` mode. 
-```python
-# various options to start the game in POSIX
-./gol        # default is RANDOM, default seed is time(NULL)
-./gol RANDOM #./gol RANDOM 12345
-./gol bLiNkEr
-./gol toad
-./gol BEACON
-
-```
-You can also use the `-DSIMULATION_S` or SIMULATION_S paramater when compiling to set the amount of time to simulate the game. It overrides `-DSTEPS` or STEPS preprocessor switch (macro). This was supposed to be a simple project so I kept the macro switches as so, rather then making them part of the command-line arguments. 
+- WSL Ubuntu 22.04.2 LTS, g++ 11.4.0
+- CMake 3.22.1
+- Make 4.3
+  
+## Requirements
+- C++17
+- argparse library
+- cmake and make
 
 ## Invoke Usage
+
+How to use the program
+
 ```python
-./gol -h #./gol --help
-Usage:
-        ./gol <optional pattern : [RANDOM, bLiNkEr, toad, BEACON] > <optional seed : num>
-        Seed always comes after pattern. Need to provide pattern if providing seed. RANDOM is default
+./gol --help #./gol -h
+Usage: gol  [options...]
+
+Options:
+        -s,--seed : Seed value of the random number generator [default: 1713754929]
+-r,--refresh_rate,--fps : Refresh rate of theg ame  [default: 1]
+  -t,--time,--sim : Simulation time of the game [default: 1000]
+          --steps : Steps in the simulation of generations to render [default: 1000]
+        -d,--dims : Dimension of the grid [default: unknown]
+     -i,--inplace : Render the output like in a game, no scoll [implicit: "true", default: false]
+        -?,--help : print help [implicit: "true", default: false]
 ```
 
 ## Demo
 
 ```python
-# This is also the contents of the run_random_stable.sh script
-./gol RANDOM 1713646168
+./gol -d 20 20 -r 5
+--------- Parameters ----------
+
+            -s,--seed : 1713754852
+-r,--refresh_rate,--fps : 5
+      -t,--time,--sim : 1000
+              --steps : 1000
+            -d,--dims : 20,20
+         -i,--inplace : false
+            -?,--help : false
+-------------------------------
+
+seed 1713754852
+
+. . . X X . . X . X X X . . . X . X . .
+. X X . X . . X X X . X X . . . . . X .
+. X X . X X X X X X X X X . X . X . X .
+X X . . X . . X X X X X . . X . . . X X
+. X . X X . X . . . X X . X X X X X X .
+. . X X X . X X X . . X X . . X . X X .
+X . X X X . X X X . X . . X X X X . . .
+. . X . X X X X . . . . X X X . . . X X
+. X X X . . . X . X . X X X X . X . . X
+. . X X X X . X X X X . . . X . X X . X
+. . . . X X . . X . . . . X X . . X X .
+X . . X X X . . . . X X . . X X X X . X
+. . X . X . . . . . . X . . . X X . X X
+. X . . X X . . X . X X . . X X X . X X
+. X . . X . . . X X . X . . . X . . . X
+. X . . . X X X X X . X . . . . . . . X
+X . X . X X X X X X . X X . X X X . . X
+X . . . . . . . . . . . X X . . . X X X
+X X . . X X X . X X X X X . X X . X X X
+X X X . . X . . . X X X . X X X . . . .
+
+X X . X X . . . . . . . . . . . . . X .
+X X . . . . . . . . . . . X . X X . X .
+. . . . X . . . . . . . . . . X . . X .
+. . . . . . . . . . . . . . . . . . . .
+. X . . . . X . . . . . . X . . . . . .
+. . . . . . . . X . . . . . . . . . X X
+X . . . . . . . . X . . . . . . X . . .
+X . . . . . . . . X X . . . . . X X X X
+. X . . . . . . . X . X . . . . X . . X
+. X . . . X . X . . X X . . . . X . . X
+. . X . . . . X X . . X . X . . . . . .
+X . . . . . . . . . X X X X . . . . . .
+. X X . . . . . . X . . X . . . . . . .
+. X X . X X . . X . . X X . X . . . . .
+. X X . X . . . . . . X X . X X X . . X
+. X X X . . . . . . . X . . X . X . X X
+X . . . X . . . . X . X . . X X X X . .
+. . . X . . . . . . . . . . . . . . . .
+. . X . X X X . X . . . . . . X . X . .
+. . X . . . . X . . . . . X . . . X . .
+
+. . . X X . . . . . . . . . X . X . X .
+. X X X X . . . . . . . . . X X X . X .
+. . . . . . . . . . . . . . X X X X . X
+. . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . X
+. . . . . . . . X X X . . . . . X . . .
+X X . . . . . . X X . . . . . X X . X .
+X X . . . . . . X X . X . . . X X . . .
+. X X . . . X X . X . X . . . . . . . .
+. X . . . . X X X X . . . X . . . . . .
+. . X . . . . . X X X . . X . . . . . .
+X . X X . . . . . X . . . . . . . . . .
+. . . . X X . . . . X . . . X . . . . .
+. . . . X X . . . . X . . . X . X X X X
+. . . . X . . . . . . X . . . . . . X X
+X X . . X . . . . . X . . . X . X X X X
+X . . X . . . . . . . . . . X . . X . .
+. . X . X X X X . . . . . . . . X . . .
+X . X . . . X X . . . . . . . . X X X .
 ```
-  
-Check the output for a toriodal grid behavriour:
-<details>
-<summary>Output</summary>
-
-```
-RANDOM
-seed 1713646168
-. . X . X . . X
-X . X . X X X .
-. . . X X . . .
-X X X . X X X X
-X . X . . X . X
-X X X . X . X X
-. X . . . X . X
-. X X X . . X .
-
-X . . . X . . X
-. X X . . . X X
-. . . . . . . .
-. . X . . . . .
-. . . . . . . .
-. . X X X . . .
-. . . . X X . .
-. X . X X X X X
-
-. . . . X . . .
-. X . . . . X X
-. X X . . . . .
-. . . . . . . .
-. . X . . . . .
-. . . X X X . .
-. . . . . . . .
-. . . X . . . X
-
-X . . . . . X X
-X X X . . . . .
-X X X . . . . .
-. X X . . . . .
-. . . X X . . .
-. . . X X . . .
-. . . X . . . .
-. . . . . . . .
-
-X . . . . . . X
-. . X . . . . .
-. . . X . . . .
-X . . . . . . .
-. . . . X . . .
-. . X . . . . .
-. . . X X . . .
-. . . . . . . X
-
-X . . . . . . X
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . X . . .
-. . . X . . . .
-X . . . . . . X
-
-X . . . . . . X
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-X . . . . . . X
-
-X . . . . . . X
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-X . . . . . . X
-
-X . . . . . . X
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . . . .
-X . . . . . . X
-```
-</details>
