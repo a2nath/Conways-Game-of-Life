@@ -50,19 +50,8 @@ inline bool GoL::cell_state_change(int row, int col)
 		{
 			if (!(offset_i == 0 && offset_j == 0))
 			{
-				int neighbor_row = (row + offset_i) % size.rows;
-				int neighbor_col = (col + offset_j) % size.cols;
-
-				// Handle negative indices by adding GRID_SIZE if necessary
-				if (neighbor_row < 0)
-				{
-					neighbor_row += size.rows;
-				}
-
-				if (neighbor_col < 0)
-				{
-					neighbor_col += size.cols;
-				}
+				int neighbor_row = (row + offset_i + size.rows) % size.rows;
+				int neighbor_col = (col + offset_j + size.cols) % size.cols;
 
 				live_n += game_grid[neighbor_row][neighbor_col];
 			}
