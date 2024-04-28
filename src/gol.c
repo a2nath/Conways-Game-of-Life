@@ -74,19 +74,8 @@ int cell_state_change(struct GoL* gol, int row, int col)
         {
             if (!(offset_i == 0 && offset_j == 0))
             {
-                int neighbor_row = (row + offset_i) % GRID_SIZE;
-                int neighbor_col = (col + offset_j) % GRID_SIZE;
-
-                // Handle negative indices by adding GRID_SIZE if necessary
-                if (neighbor_row < 0)
-                {
-                    neighbor_row += GRID_SIZE;
-                }
-
-                if (neighbor_col < 0)
-                {
-                    neighbor_col += GRID_SIZE;
-                }
+                int neighbor_row = (row + offset_i + GRID_SIZE) % GRID_SIZE;
+                int neighbor_col = (col + offset_j + GRID_SIZE) % GRID_SIZE;
 
                 live_n += gol->grid[neighbor_row][neighbor_col];
             }
